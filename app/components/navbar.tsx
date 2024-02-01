@@ -8,19 +8,19 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 export async function Navbar() {
     const { isAuthenticated } = getKindeServerSession();
     return (
-        <div className="border-b border-gray-200 dark:border-gray-800 h-[10vh]">
+        <div className="border-b border-gray-200 dark:border-gray-800 h-[10vh] p-2">
             <div className="flex items-center justify-between h-full px-4 mx-auto max-w-7xl">
                 <Link href="/">
                     <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">RAMKISHOR</p>
                 </Link>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-10">
                     <ThemeToggle />
                     {(await isAuthenticated()) ? (
                         <Button>
                             Logout
                         </Button>
                     ) : (
-                        <div>
+                            <div className="space-x-5">
                             <LoginLink>
                                 <Button>
                                     Sign In
