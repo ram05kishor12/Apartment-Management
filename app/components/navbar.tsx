@@ -1,54 +1,48 @@
-"use client";
 import Link from "next/link";
-import { useEffect } from "react"; // Import useEffect hook
-import { redirect, useRouter } from "next/navigation"; // Import useRouter hook
 import { ThemeToggle } from "./themetoggle";
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
-import { useAuth } from "@clerk/nextjs";
-import { getAuth } from "@clerk/nextjs/server";
+import {
+    RegisterLink,
+    LoginLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { UserNav } from "./usernav";
 
-export function Navbar() {
-    const { sessionId, isLoaded } = useAuth();
-    const router = useRouter(); // Initialize useRouter
-
-    // Use useEffect to check for sessionId changes
-    // useEffect(() => {
-    //     // Check if user is signed in and sessionId exists
-    //     if (isLoaded && sessionId) {
-    //         // Redirect to dashboard page
-    //         router.push("/dashboard");
-    //     }
-    // }, [isLoaded, sessionId]); // Dependency array ensures this effect runs only when isLoaded or sessionId changes
+export async function Navbar() {
+    const { isAuthenticated, getUser } = getKindeServerSession();
+    const user = await getUser();
 
     return (
-        <div className="border-b border-gray-200 dark:border-gray-800 h-[10vh] p-3">
-            <div className="flex items-center justify-between h-full px-1 mx-auto max-w-7xl">
+        <nav className="border-b bg-background h-[10vh] flex items-center">
+            <div className="container flex items-center justify-between">
                 <Link href="/">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">NOTES <span className="text-primary"> EASE</span></p>
+                    <h1 className="font-bold text-3xl">
+                        NOTES<span className="text-primary space-x-2">  EASE</span>
+                    </h1>
                 </Link>
-                <div className="flex items-center gap-10">
+
+                <div className="flex items-center gap-x-5">
                     <ThemeToggle />
-                    {isLoaded ? (
-                        sessionId ? (
-                            <UserButton afterSignOutUrl="/" />
-                        ) : (
-                            <div className="space-x-5">
-                                <Link href="/sign-in">
-                                    <Button>
-                                        Sign In
-                                    </Button>
-                                </Link>
-                                <Link href="/sign-up">
-                                    <Button variant={"secondary"}>
-                                        Sign Up
-                                    </Button>
-                                </Link>
-                            </div>
-                        )
-                    ) : null}
+
+                    {(await isAuthenticated()) ? (
+                        <UserNav
+                            email={user?.email as string}
+                            image={user?.picture as string}
+                            name={user?.given_name as string}
+                        />
+                    ) : (
+                        <div className="flex items-center gap-x-5">
+                            <LoginLink>
+                                <Button>Sign In</Button>
+                            </LoginLink>
+
+                            <RegisterLink>
+                                <Button variant="secondary">Sign Up</Button>
+                            </RegisterLink>
+                        </div>
+                    )}
                 </div>
             </div>
-        </div>
+        </nav>
     );
 }

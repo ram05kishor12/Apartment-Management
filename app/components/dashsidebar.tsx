@@ -1,7 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Navbar } from "../components/navbar";
-import { UserButton } from "@clerk/nextjs";
 import { HomeIcon, SettingsIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
