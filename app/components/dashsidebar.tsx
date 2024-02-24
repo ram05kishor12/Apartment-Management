@@ -20,7 +20,7 @@ export default function Dash() {
     const pathname = usePathname();
     console.log(pathname);
     return (
-        <nav className="grid items-start gap-2 py-5">
+        <nav className="flex flex-col items-start gap-2 py-5">
             {Items.map((item) => (
                 <Link href={item.href} key={item.name}>
                     <span className={cn(

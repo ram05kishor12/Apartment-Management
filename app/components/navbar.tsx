@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
 import { useEffect } from "react"; // Import useEffect hook
-import { useRouter } from "next/navigation"; // Import useRouter hook
+import { redirect, useRouter } from "next/navigation"; // Import useRouter hook
 import { ThemeToggle } from "./themetoggle";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { useAuth } from "@clerk/nextjs";
+import { getAuth } from "@clerk/nextjs/server";
 
 export function Navbar() {
     const { sessionId, isLoaded } = useAuth();
