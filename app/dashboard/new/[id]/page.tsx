@@ -63,7 +63,7 @@ export default async function DynamicRoute({
                 userId: user.id,
             },
             data: {
-                description: encryptedDescription,
+                description: description,
                 title: title,
             },
         });
