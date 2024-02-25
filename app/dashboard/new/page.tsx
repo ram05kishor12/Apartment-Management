@@ -27,10 +27,6 @@ export default async function NewNoteRoute() {
     async function postData(formData: FormData) {
         "use server";
 
-        if (!user) {
-            throw new Error("Not authorized");
-        }
-
         const title = formData.get("title") as string;
         const description = formData.get("description") as string;
         const encryptedDescription = await bcrypt.hash(description, 10)
