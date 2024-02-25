@@ -121,6 +121,10 @@ export default async function SettingPage() {
                                             <SelectItem value="theme-orange">Orange</SelectItem>
                                             <SelectItem value="theme-red">Red</SelectItem>
                                             <SelectItem value="theme-rose">Rose</SelectItem>
+                                            <SelectItem value="theme-gray">Gray</SelectItem>
+                                            <SelectItem value="theme-slate">Slate</SelectItem>
+                                            <SelectItem value="theme-zinc">Zinc</SelectItem>
+
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>

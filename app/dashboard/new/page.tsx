@@ -17,6 +17,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { unstable_noStore as noStore } from "next/cache";
 
+const bcrypt = require('bcrypt');
+
 export default async function NewNoteRoute() {
     noStore();
     const { getUser } = getKindeServerSession();
@@ -31,11 +33,12 @@ export default async function NewNoteRoute() {
 
         const title = formData.get("title") as string;
         const description = formData.get("description") as string;
+        const encryptedDescription = await bcrypt.hash(description, 10)
 
         await prisma.note.create({
             data: {
                 userId: user?.id,
-                description: description,
+                description: encryptedDescription,
                 title: title,
             },
         });

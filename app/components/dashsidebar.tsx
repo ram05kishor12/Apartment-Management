@@ -11,7 +11,7 @@ export const Items = [
 
     },
     {
-        name: "Settings", href: "/settings", icon: SettingsIcon
+        name: "Settings", href: "/dashboard/settings", icon: SettingsIcon
     }
 
 ]

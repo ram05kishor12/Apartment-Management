@@ -9,14 +9,14 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CreditCard, DoorClosed, Home, Settings } from "lucide-react";
+import { CreditCard, LogOutIcon, HomeIcon, SettingsIcon } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 import Link from "next/link";
 
 export const navItems = [
-    { name: "Home", href: "/dashboard", icon: Home },
-    { name: "Settings", href: "/settings", icon: Settings },
+    { name: "Home", href: "/dashboard", icon: HomeIcon },
+    { name: "Settings", href: "/dashboard/settings", icon: SettingsIcon },
 ];
 
 export function UserNav({
@@ -31,10 +31,10 @@ export function UserNav({
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                <Button variant="ghost" className="relative h-5 w-5 rounded-full">
                     <Avatar className="h-10 w-10 rounded-full">
                         <AvatarImage src={image} alt="" />
-                        <AvatarFallback>Jan</AvatarFallback>
+                        <AvatarFallback>{image}</AvatarFallback>
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
@@ -72,7 +72,7 @@ export function UserNav({
                     <LogoutLink>
                         Logout{" "}
                         <span>
-                            <DoorClosed className="w-4 h-4" />
+                            <LogOutIcon className="w-4 h-4" />
                         </span>
                     </LogoutLink>
                 </DropdownMenuItem>

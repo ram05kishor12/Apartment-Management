@@ -17,6 +17,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 
+const bcrypt = require('bcrypt');
+
 async function getData({ userId, noteId }: { userId: string; noteId: string }) {
     noStore();
     const data = await prisma.note.findUnique({
@@ -51,13 +53,15 @@ export default async function DynamicRoute({
         const title = formData.get("title") as string;
         const description = formData.get("description") as string;
 
+        const encryptedDescription = await bcrypt.hash(description, 10);
+
         await prisma.note.update({
             where: {
                 id: data?.id,
                 userId: user.id,
             },
             data: {
-                description: description,
+                description: encryptedDescription,
                 title: title,
             },
         });

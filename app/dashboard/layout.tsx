@@ -1,7 +1,5 @@
 import { ReactNode } from 'react';
-import { DashboardNav } from '../components/dashboardNav';
 import prisma from '../lib/db';
-import Dashboard from './dashboard/page';
 import Dashside from '../components/dashsidebar';
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
