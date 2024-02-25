@@ -27,13 +27,15 @@ export default async function NewNoteRoute() {
     async function postData(formData: FormData) {
         "use server";
 
-        if (!user) {
-            throw new Error("Not authorized");
-        }
+        // if (!user) {
+        //     throw new Error("Not authorized");
+        // }
+
+        if (user){
 
         const title = formData.get("title") as string;
         const description = formData.get("description") as string;
-        const encryptedDescription = await bcrypt.hash(description, 10)
+        // const encryptedDescription = await bcrypt.hash(description, 10)
 
         await prisma.note.create({
             data: {
@@ -45,7 +47,7 @@ export default async function NewNoteRoute() {
 
         return redirect("/dashboard");
     }
-
+    }
     return (
         <Card>
             <form action={postData}>

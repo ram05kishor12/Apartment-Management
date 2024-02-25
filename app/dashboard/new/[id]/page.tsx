@@ -48,7 +48,9 @@ export default async function DynamicRoute({
     async function postData(formData: FormData) {
         "use server";
 
-        if (!user) throw new Error("you are not allowed");
+        // if (!user) throw new Error("you are not allowed");
+
+        if(user){
 
         const title = formData.get("title") as string;
         const description = formData.get("description") as string;
@@ -69,6 +71,7 @@ export default async function DynamicRoute({
         revalidatePath("/dashboard");
 
         return redirect("/dashboard");
+    }
     }
     return (
         <Card>
