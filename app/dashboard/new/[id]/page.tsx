@@ -27,9 +27,10 @@ async function getData({ userId, noteId }: { userId: string; noteId: string }) {
             userId: userId,
         },
         select: {
-            title: true,
-            description: true,
+            resname: true,
+            address: true,
             id: true,
+            phone: true,
         },
     });
 
@@ -52,10 +53,11 @@ export default async function DynamicRoute({
 
         if(user){
 
-        const title = formData.get("title") as string;
-        const description = formData.get("description") as string;
+        const resname = formData.get("title") as string;
+        const address = formData.get("description") as string;
+        const phone = formData.get("phone") as string;
 
-        const encryptedDescription = await bcrypt.hash(description, 10);
+        // const encryptedDescription = await bcrypt.hash(description, 10);
 
         await prisma.note.update({
             where: {
@@ -63,8 +65,9 @@ export default async function DynamicRoute({
                 userId: user.id,
             },
             data: {
-                description: description,
-                title: title,
+                address: address,
+                resname:  resname,
+                phone: phone,
             },
         });
 
@@ -84,23 +87,32 @@ export default async function DynamicRoute({
                 </CardHeader>
                 <CardContent className="flex flex-col gap-y-5">
                     <div className="gap-y-2 flex flex-col">
-                        <Label>Title</Label>
+                        <Label>Resident</Label>
                         <Input
                             required
                             type="text"
                             name="title"
                             placeholder="Title for your note"
-                            defaultValue={data?.title}
+                            defaultValue={data?.resname}
                         />
                     </div>
 
                     <div className="flex flex-col gap-y-2">
-                        <Label>Description</Label>
+                        <Label>Address</Label>
                         <Textarea
                             name="description"
                             placeholder="Describe your note as you want"
                             required
-                            defaultValue={data?.description}
+                            defaultValue={data?.address}
+                        />
+                    </div>
+                    <div className="flex flex-col gap-y-2">
+                        <Label>Phone</Label>
+                        <Textarea
+                            name="phone"
+                            placeholder="Describe your note as you want"
+                            required
+                            defaultValue={data?.phone}
                         />
                     </div>
                 </CardContent>

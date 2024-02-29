@@ -15,8 +15,8 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center p-8 lg:p-16">
-      <h1 className="text-4xl mt-24 lg:text-6xl md:text-5xl font-extrabold text-center">Create Notes With Ease</h1>
-      <p className="max-w-lg mt-6 text-base lg:text-xl text-center">Welcome to our Notes App! This is a user-friendly platform designed to make note-taking easier and more efficient.</p>
+      <h1 className="text-4xl mt-24 lg:text-6xl md:text-5xl font-extrabold text-center">ResidentLedger</h1>
+      <p className="max-w-lg mt-6 text-base lg:text-xl text-center">Welcome to ResidentLedger, the easiest way to manage your apartment building.</p>
       <div className="mt-10">
         <RegisterLink>
           <Button className=" w-52">

@@ -12,18 +12,20 @@ datasource db {
 }
 
 model User {
-  id               String        @id @unique
-  name             String?
-  email            String        @unique
-  colorScheme      String        @default("theme-violet")
-  Notes            Note[]
+  id          String  @id @unique
+  name        String?
+  email       String  @unique
+  colorScheme String  @default("theme-violet")
+  Notes       Note[]
 }
 
-
 model Note {
-  id          String @id @default(uuid())
-  title       String
-  description String
+  id       String @id @default(uuid())
+  resname  String
+  familymembers String
+  address String
+  proof String
+  phone String  
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

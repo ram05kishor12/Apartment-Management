@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Navbar } from "../components/navbar";
-import { HomeIcon, SettingsIcon } from "lucide-react";
+import { HomeIcon, PartyPopper, SettingsIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,6 +12,9 @@ export const Items = [
     },
     {
         name: "Settings", href: "/dashboard/settings", icon: SettingsIcon
+    },
+    {
+        name: "Payments", href: "/dashboard/payments", icon: PartyPopper
     }
 
 ]

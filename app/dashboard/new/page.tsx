@@ -15,7 +15,7 @@ import Link from "next/link";
 import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 
 const bcrypt = require('bcrypt');
 
@@ -31,51 +31,87 @@ export default async function NewNoteRoute() {
         //     throw new Error("Not authorized");
         // }
 
-        if (user){
+        if (user) {
+            const resname = formData.get("resname") as string;
+            const familymembers = formData.get("familymembers") as string;
+            const address = formData.get("address") as string;
+            const phone = formData.get("phone") as string;
+            const proof = formData.get("proof") as string;
 
-        const title = formData.get("title") as string;
-        const description = formData.get("description") as string;
-        // const encryptedDescription = await bcrypt.hash(description, 10)
+            // const encryptedDescription = await bcrypt.hash(description, 10)
 
-        await prisma.note.create({
-            data: {
-                userId: user?.id,
-                description: description,
-                title: title,
-            },
-        });
+            await prisma.note.create({
+                data: {
 
-        return redirect("/dashboard");
-    }
+                    userId: user?.id as string,
+                    resname: resname,
+                    familymembers: familymembers,
+                    address: address,
+                    phone: phone,
+                    proof : proof
+                },
+            });
+            
+            return redirect("/dashboard");
+
+    
+        }
     }
     return (
         <Card>
             <form action={postData}>
                 <CardHeader>
-                    <CardTitle>New Note</CardTitle>
+                    <CardTitle>New Resident</CardTitle>
                     <CardDescription>
-                        Right here you can now create your new notes
+                        Add a new resident to your building
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-y-5">
                     <div className="gap-y-2 flex flex-col">
-                        <Label>Title</Label>
+                        <Label>Name of Resident</Label>
                         <Input
                             required
                             type="text"
-                            name="title"
-                            placeholder="Title for your note"
+                            name="resname"
+                            placeholder="Resident Name"
                         />
                     </div>
 
+                    <div className="gap-y-2 flex flex-col">
+                        <Label>Number of family members</Label>
+                        <Input
+                            required
+                            type="text"
+                            name="familymembers"
+                            placeholder="Family members"
+                        />
+                    </div>
                     <div className="flex flex-col gap-y-2">
-                        <Label>Description</Label>
+                        <Label>Address</Label>
                         <Textarea
-                            name="description"
-                            placeholder="Describe your note as you want"
+                            name="address"
+                            placeholder="Enter address"
                             required
                         />
                     </div>
+                    <div className="flex flex-col gap-y-2">
+                        <Label>Identity Proof</Label>
+                        <Input
+                            type="text"
+                            name="proof"
+                            placeholder="Enter identity proof details"
+                            required
+                        />
+                    </div>
+                    <div className="flex flex-col gap-y-2">
+                        <Label>Phone</Label>
+                        <Input
+                            name="phone"
+                            placeholder="Phone number"
+                            required
+                        />
+                    </div>
+
                 </CardContent>
 
                 <CardFooter className="flex justify-between">

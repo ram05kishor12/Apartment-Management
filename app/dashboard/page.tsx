@@ -17,9 +17,9 @@ async function getData(userId: string) {
         select: {
             Notes: {
                 select: {
-                    title: true,
+                    resname: true,
                     id: true,
-                    description: true,
+                    address: true,
                     createdAt: true,
                 },
                 orderBy: {
@@ -29,6 +29,7 @@ async function getData(userId: string) {
         },
     });
 
+    console.log(data);
     return data;
 }
 
@@ -54,17 +55,17 @@ export default async function DashboardPage() {
         <div className="grid items-start gap-y-8">
             <div className="flex items-center justify-between px-2">
                 <div className="grid gap-1">
-                    <h1 className="text-3xl md:text-4xl">Your Notes</h1>
+                    <h1 className="text-3xl md:text-4xl">Your Residents Details</h1>
                     <p className="text-lg text-muted-foreground">
-                        Here you can see and create new notes
+                        Here are the details of your residents
                     </p>
                 </div>
 
-               
-                    <Button asChild>
-                        <Link href="/dashboard/new">Create a new Note</Link>
-                    </Button>
-            
+
+                <Button asChild>
+                    <Link href="/dashboard/new">Add Residents</Link>
+                </Button>
+
             </div>
 
             {data?.Notes.length == 0 ? (
@@ -74,18 +75,17 @@ export default async function DashboardPage() {
                     </div>
 
                     <h2 className="mt-6 text-xl font-semibold">
-                        You dont have any notes created
+                        You dont have any residents yet
                     </h2>
                     <p className="mb-8 mt-2 text-center text-sm leading-6 text-muted-foreground max-w-sm mx-auto">
-                        You currently dont have any notes. please create some so that you
-                        can see them right here.
+                        Add a resident to get started for efficient management of your apartment
                     </p>
 
-                    
-                        <Button asChild>
-                            <Link href="/dashboard/new">Create a new Note</Link>
-                        </Button>
-                  
+
+                    <Button asChild>
+                        <Link href="/dashboard/new">Add Residents</Link>
+                    </Button>
+
                 </div>
             ) : (
                 <div className="flex flex-col gap-y-4">
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
                         >
                             <div>
                                 <h2 className="font-semibold text-xl text-primary">
-                                    {item.title}
+                                    {item.resname}
                                 </h2>
                                 <p>
                                     {new Intl.DateTimeFormat("en-US", {
